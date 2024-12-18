@@ -1,0 +1,9 @@
+print ('I adjective computer science class. I am writing a adjective code. in the code, there is a noun walking down the street. In front of them there is a family with their noun. They verb into the park. they throw a noun all over the park')
+first_option = str.lower (input('choose an adjective: '))
+second_option = str.lower(input('choose an adjective: '))
+third_option = str.lower (input('choose a noun: '))
+fourth_option = str.lower(input('choose a noun: '))
+fifth_option = str.lower(input('choose a verb: '))
+sixth_option = str.lower(input('choose a noun:'))
+print(f'I {first_option} computer science class. I am writing a {second_option} code, in the code, there is a dog {third_option} down the street. In front of them there is a family with their {fourth_option}. They {fifth_option} into the park. the throw a {sixth_option} all over the park')
+ 
