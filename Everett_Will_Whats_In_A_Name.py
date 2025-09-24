@@ -29,8 +29,12 @@ def first_name(name):
     titles = ['Dr.', 'Ms.', 'Mrs.', 'Jr.', 'Sr.', 'III', 'IV', 'PhD', 'MD', 'Professor', 'sir', 'lord', 'lady', 'king']
     parts = name.split(" ")
 
+
     if parts [0] in titles:
-        name_1 = parts[1]
+        new_name = parts.remove(parts[0])
+        name_1 = parts[0]
+        
+
     else:
         name_1 = parts[0]
         
@@ -41,16 +45,14 @@ def last_name(name, which):
     titles = ['Dr.', 'Ms.', 'Mrs.', 'Jr.', 'Sr.', 'III', 'IV', 'PhD', 'MD', 'Professor', 'sir', 'lord', 'lady', 'king']
     parts = name.split(" ")
     if which == 'middle' and parts[0] in titles:
-        name_3 = parts[4]
+        name_3 = parts[2] + ' ' + parts[3]
     elif which == 'middle' and parts[0] not in titles:
         name_3 = parts[3]
+        upper(name_3[0])
     elif which == 'last' and parts[0] in titles:
-        name_3 = parts[3]+parts[4]
-    
-
-    
-    if parts[0] in titles:
-        name_3 = parts[3]
+        name_3 = parts[3] + " " + parts[4]
+    elif which == 'last' and parts[0] not in titles:
+        name_3 = parts[2] + " " + parts[3]
     else:
         name_3 = parts[2]
 
@@ -137,11 +139,13 @@ def check_for_title(name):
             return True
         else:
             return False
-        
+def secret_challenge(name):
+    pass
+
 def main():
     while True:
-        name = input('what is your name: ')
-        doubles = input('do you have 2 middle names or 2 lasts names: ')
+        name = input('what is your full name: ')
+        doubles = input('do you have 2 middle names or 2 lasts names, yes or no: ')
         if doubles == 'yes':
             which = input('middle or last? ')
         while True:
@@ -160,6 +164,7 @@ def main():
                                 12.)Have your name returnes as characters ✔️
                                 13.)Get your initials  ✔️
                                 14.)See if your name has a title ✔️
+                                15.) secret challenge
                                 Choose a number: ''')
 
                 if selection == '1':
@@ -171,7 +176,7 @@ def main():
                 elif selection == '4':
                     print(first_name(name))
                 elif selection == '5':
-                    print(last_name(name,which))
+                    print(last_name(name, which))
                 elif selection == '6':
                     print(middle_name(name))
                 elif selection == '7':
@@ -190,10 +195,12 @@ def main():
                     print(check_for_initials(name))
                 elif selection == '14':
                     print(check_for_title(name))
+                elif selection == '15':
+                    secret_challenge(name)
                 else:
                     print("that option doesn't exist")
                     break
 
 
-    main()
+main()
 
