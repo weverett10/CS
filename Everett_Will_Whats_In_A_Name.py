@@ -7,6 +7,44 @@ Bugs:Names dont work. NOT ALL TITLES ARE LISTED ONLY A SPECIFIC AMOUNT. count co
 challenges: sorted aray, menu, title, Ceaser Cipher
 sources: Mr Campbell and Ms. Marciano
  '''
+def uppercase(name):
+    '''
+    Description: changes everything to uppercase
+
+    Args: name (string) origional input for name
+
+    Returns: the name all uppercase
+    '''
+    name_out = ''
+
+    for letter in name:
+        if ord(letter) < 122 and ord(letter) > 91:
+            num = ord(letter)
+            num -= 32
+            letter = chr(num)
+            name_out += letter
+        else:
+            name_out += letter
+    return name_out
+def lowercase(name):
+    '''
+    Description: turns the name all lowercase
+
+    Args: name (string) origional input for name
+
+    Returns: the name all lowecase
+    '''
+    name_out = ''
+
+    for letter in name:
+        if ord(letter) > 64 and ord(letter) < 91:
+            num = ord(letter)
+            num += 32
+            letter = chr(num)
+            name_out += letter
+        else:
+            name_out += letter
+    return name_out
 def remove_title(name):
     '''
     Description: removes the title in a name
@@ -21,9 +59,7 @@ def remove_title(name):
     for title in titles:
         if title in names:
             names.remove(title)
-            return ' '.join(names)
-        else:
-            return(names)    
+    return ' '.join(names)    
 def reverse(name):
     '''
     Description: reverses the name inputed
@@ -32,9 +68,7 @@ def reverse(name):
 
     Returns: the reverse of the inputed name
     '''
-
-    reverse_name = lower(name[::-1])
-    return(reverse_name) 
+    return lowercase(name[::-1])
 def count_vowels(name):
     '''
     Description: conuts the amount of vowels in the name
@@ -77,12 +111,8 @@ def first_name(name):
     '''
     new = remove_title(name)
     names = new.split(' ')
-    if names.index(names[-1])< 3 or names.index(names[-1]) < 2:
-        return name[0]
-    
-    else:
-        return names[0]
-def last_name(name, which):
+    return names[0]
+def last_name(name):
     '''
     Description: returns the last name form the given name
 
@@ -92,11 +122,8 @@ def last_name(name, which):
     '''
     new = remove_title(name)
     names = new.split(' ')
-    if which == 'last' or which == 'both':
-        return names[-1]+' '+names[-2]
-    else:
-        return names[-1]
-def middle_name(name, which ): 
+    return names[-1]
+def middle_name(name): 
     '''
     Description: returns the middle name
 
@@ -104,16 +131,9 @@ def middle_name(name, which ):
 
     Returns: the middle name of the given name
     '''
-
     new = remove_title(name)
     names = new.split(' ')
-    if which == 'last' or which == 'both':
-        return ' '.join(names[1:-2])
-    elif names.index(names[-1])< 3 or names.index(names[-1]) < 2:
-        return 'no middle name present'
-
-    else:
-        return ' '.join(names[1:-1])
+    return ' '.join(names[1:-1])
 def hyphen(name):
     '''
     Description: check if there is a hyphen in your name
@@ -122,49 +142,7 @@ def hyphen(name):
 
     Returns: returns a boolean(true or false) if it detects a hyphen
     '''
-    hyphen = '-'
-    if hyphen in name:
-        return True
-    else:
-        return False
-def upper(name):
-    '''
-    Description: changes everything to uppercase
-
-    Args: name (string) origional input for name
-
-    Returns: the name all uppercase
-    '''
-    name_out = ''
-
-    for letter in name:
-        if ord(letter) < 122 and ord(letter) > 91:
-            num = ord(letter)
-            num -= 32
-            letter = chr(num)
-            name_out += letter
-        else:
-            name_out += letter
-    return name_out
-def lower(name):
-    '''
-    Description: turns the name all lowercase
-
-    Args: name (string) origional input for name
-
-    Returns: the name all lowecase
-    '''
-    name_out = ''
-
-    for letter in name:
-        if ord(letter) > 64 and ord(letter) < 91:
-            num = ord(letter)
-            num += 32
-            letter = chr(num)
-            name_out += letter
-        else:
-            name_out += letter
-    return name_out
+    return '-' in last_name(name)
 def scramble(name):
     '''
     Description: scrambles all the letters in your name
@@ -192,52 +170,21 @@ def palindrome(name):
 
     Returns:a boolean (yes or no) if your name is a boolean
     '''
-    reversed = reverse(name)
-    if lower(name) == reversed:
-        return True
-    else:
-        return False
+    return lowercase(name) == reverse(lowercase(name))
 def sorted_array(name):
     real_name = name.replace(' ', '')
     real_name = name.replace('-','')
     chars = list(real_name)
     sorted_chars = sorted(chars)
     return ' '.join(sorted_chars)
-def check_for_initials(name, which): 
-    final_initials = ''
+def check_for_initials(name): 
+    initials = ''
+    new = remove_title(name)
+    names = new.split(' ')
 
-    first = first_name(name)
-    second = middle_name(name)
-    third = last_name(name)
-
-    if which == 'middle':
-        first_initial = first[0]
-        second_initial = second.split(' ')
-        secondi = second_initial[0]
-        secondi2 = second_initial[1]
-        third_initial = third[0]
-
-        final_initials = first_initial + secondi + secondi2 + third_initial
-
-        return(upper(final_initials))
-    elif which == 'last':
-        first_initial = first[0]
-        second_initial = second[0]
-        third_initial = third.split(' ')
-        thirdi = third[0]
-        thirdi3 = third[1]
-
-        final_initials = first_initial + second_initial + thirdi + thirdi3
-
-        return(upper(final_initials))
-    
-    else:
-        first_initial = first[0]
-        second_initial = second[0]
-        third_initial = third[0]
-
-        final_initials = (first_initial + second_initial + third_initial)
-        return(upper(final_initials))
+    for n in names:
+        initials += n[0]
+    return uppercase(initials)
 def check_for_title(name):
     titles = ['Dr.', 'Ms.', 'Mrs.', 'Jr.', 'Sr.', 'III', 'IV', 'PhD', 'MD', 'Professor', 'sir', 'lord', 'lady', 'king']
     for title in titles:
@@ -284,17 +231,17 @@ def main():
                 elif selection == '3':
                     print(count_consanants(name))
                 elif selection == '4':
-                    print(first_name(name, which))
+                    print(first_name(name))
                 elif selection == '5':
-                    print(last_name(name, which))
+                    print(last_name(name))
                 elif selection == '6':
-                    print(middle_name(name,which))
+                    print(middle_name(name))
                 elif selection == '7':
                     print(hyphen(name))
                 elif selection == '8':
-                    print(lower(name))
+                    print(lowercase(name))
                 elif selection == '9':
-                    print(upper(name))
+                    print(uppercase(name))
                 elif selection == '10':
                     print(scramble(name))
                 elif selection == '11':
@@ -302,7 +249,7 @@ def main():
                 elif selection == '12':
                     print(sorted_array(name))
                 elif selection == '13':
-                    print(check_for_initials(name, which))
+                    print(check_for_initials(name))
                 elif selection == '14':
                     print(check_for_title(name))
                 elif selection == '15':
