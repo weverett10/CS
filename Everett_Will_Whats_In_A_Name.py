@@ -3,7 +3,7 @@ import random
 Author: Will Everett
 Date: 9/30/25
 description: practicing functions for CS2: getting different aspects of a name
-Bugs: names dont work if you dont input all 3 names. NOT ALL TITLES ARE LISTED ONLY A SPECIFIC AMOUNT.count consonants counts things that aren't letters
+Bugs:Names dont work. NOT ALL TITLES ARE LISTED ONLY A SPECIFIC AMOUNT. count consnanats and vowels doesnt work. make initials doesn't work b/c of names
 challenges: sorted aray, menu, title, Ceaser Cipher
 sources: Mr Campbell and Ms. Marciano
  '''
@@ -61,10 +61,10 @@ def count_consanants(name):
     '''
     new = remove_title(name)
     count_con = 0
-    vowels = ['a', 'e', 'i', 'o', 'u']
+    consenants = ['b', 'c', 'd', 'f', 'g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z','B', 'C', 'D', 'F', 'G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
 
     for charactors in new:
-        if charactors not in vowels:
+        if charactors in consenants:
             count_con += 1
     return count_con
 def first_name(name):
@@ -96,7 +96,7 @@ def last_name(name, which):
         return names[-1]+' '+names[-2]
     else:
         return names[-1]
-def middle_name(name,which ): 
+def middle_name(name, which ): 
     '''
     Description: returns the middle name
 
@@ -176,6 +176,8 @@ def scramble(name):
     shuffled = ''
     new_name = name.replace(' ','')
     letters = list(new_name)
+    if '-' in letters:
+        letters.remove('-')
 
     while len(letters) > 0:
         letter = random.choice(letters)
@@ -197,17 +199,45 @@ def palindrome(name):
         return False
 def sorted_array(name):
     real_name = name.replace(' ', '')
+    real_name = name.replace('-','')
     chars = list(real_name)
     sorted_chars = sorted(chars)
     return ' '.join(sorted_chars)
-def check_for_initials(name): 
-    initials = ''
-    new = remove_title(name)
-    names = new.split(' ')
+def check_for_initials(name, which): 
+    final_initials = ''
 
-    for n in names:
-        initials += n[0]
-    return initials
+    first = first_name(name)
+    second = middle_name(name)
+    third = last_name(name)
+
+    if which == 'middle':
+        first_initial = first[0]
+        second_initial = second.split(' ')
+        secondi = second_initial[0]
+        secondi2 = second_initial[1]
+        third_initial = third[0]
+
+        final_initials = first_initial + secondi + secondi2 + third_initial
+
+        return(upper(final_initials))
+    elif which == 'last':
+        first_initial = first[0]
+        second_initial = second[0]
+        third_initial = third.split(' ')
+        thirdi = third[0]
+        thirdi3 = third[1]
+
+        final_initials = first_initial + second_initial + thirdi + thirdi3
+
+        return(upper(final_initials))
+    
+    else:
+        first_initial = first[0]
+        second_initial = second[0]
+        third_initial = third[0]
+
+        final_initials = (first_initial + second_initial + third_initial)
+        return(upper(final_initials))
 def check_for_title(name):
     titles = ['Dr.', 'Ms.', 'Mrs.', 'Jr.', 'Sr.', 'III', 'IV', 'PhD', 'MD', 'Professor', 'sir', 'lord', 'lady', 'king']
     for title in titles:
@@ -231,18 +261,18 @@ def main():
         while True:
                 selection = input('''\n What would you like to do with your name?
                                 1.)Reverse it ✔️
-                                2.)Find the number of vowels ✔️
-                                3.)Find the number of consonants ✔️
-                                4.)See your first name ✔️
-                                5.)See your last name ✔️
-                                6.)See your middle name ✔️
+                                2.)Find the number of vowels 
+                                3.)Find the number of consonants 
+                                4.)See your first name 
+                                5.)See your last name 
+                                6.)See your middle name 
                                 7.)See if your your last name contains a hyphen ✔️
                                 8.)Switch all letters to lowercase ✔️
                                 9.)Switch all letters to uppercase ✔️
                                 10.)scramble the letters ✔️
                                 11.)See if your name is a palindrome ✔️
                                 12.)Have your name returnes as characters ✔️
-                                13.)Get your initials  ✔️
+                                13.)Get your initials  
                                 14.)See if your name has a title ✔️
                                 15.)Encode your name
                                 Choose a number: ''')
@@ -272,7 +302,7 @@ def main():
                 elif selection == '12':
                     print(sorted_array(name))
                 elif selection == '13':
-                    print(check_for_initials(name))
+                    print(check_for_initials(name, which))
                 elif selection == '14':
                     print(check_for_title(name))
                 elif selection == '15':
