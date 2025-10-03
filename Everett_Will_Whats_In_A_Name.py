@@ -3,8 +3,7 @@ import random
 Author: Will Everett
 Date: 9/30/25
 description: practicing functions for CS2: getting different aspects of a name
-Bugs:Names dont work. NOT ALL TITLES ARE LISTED ONLY A SPECIFIC AMOUNT. count consnanats and vowels doesnt work. make initials doesn't work b/c of names
-challenges: sorted aray, menu, title, Ceaser Cipher
+Bugs:NOT ALL TITLES ARE LISTED ONLY A SPECIFIC AMOUNT.
 sources: Mr Campbell and Ms. Marciano
  '''
 def uppercase(name):
@@ -161,7 +160,7 @@ def scramble(name):
         letter = random.choice(letters)
         shuffled += letter
         letters.remove(letter)
-    return shuffled 
+    return lowercase(shuffled) 
 def palindrome(name):
     '''
     Description: checks if your name is a palindrome
@@ -176,7 +175,9 @@ def sorted_array(name):
     real_name = name.replace('-','')
     chars = list(real_name)
     sorted_chars = sorted(chars)
-    return ' '.join(sorted_chars)
+    final = ' '.join(sorted_chars)
+    return lowercase(final)
+    
 def check_for_initials(name): 
     initials = ''
     new = remove_title(name)
@@ -192,7 +193,68 @@ def check_for_title(name):
             return True
     return False
 def encryption(name):
-    pass
+    final = ''
+    new1 = remove_title(name)
+    new = lowercase(new1)
+    choice  = input('do you want to encode or decode your name: ')
+    if choice == 'encode':
+        while len(new) > 0: 
+            changing = new[0]
+            if changing == ' ' or changing == '-':
+                final += changing
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
+            elif new[0] in ('v','w','x','y','z'):
+                num = ord(changing)
+                num += 5 
+                to_change = num - 122
+                new_num = to_change + 96
+                chred = chr(new_num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)                
+            else:
+                num = ord(changing)
+                num += 5
+                chred = chr(num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
+
+
+        return final
+    elif choice == 'decode':
+        while len(new) > 0: 
+            changing = new[0]
+            if changing == ' ' or changing == '-':
+                final += changing
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
+            elif new[0] in ('a','b','c','d','e'):
+                num = ord(changing)
+                num -= 5 
+                to_change = 97 - num
+                new_num = 123 - to_change
+                chred = chr(new_num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)                
+            else:
+                num = ord(changing)
+                num -= 5
+                chred = chr(num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
+        return final
+    
+    
     
 
 
@@ -202,9 +264,6 @@ def encryption(name):
 def main():
     while True:
         name = input('what is your full name: ')
-        doubles = input('do you have 2 middle names or 2 lasts names, yes or no: ')
-        if doubles == 'yes':
-            which = input('middle, last, or both? ')
         while True:
                 selection = input('''\n What would you like to do with your name?
                                 1.)Reverse it ✔️
@@ -222,6 +281,7 @@ def main():
                                 13.)Get your initials  
                                 14.)See if your name has a title ✔️
                                 15.)Encode your name
+                                16.)Change name
                                 Choose a number: ''')
 
                 if selection == '1':
@@ -253,7 +313,9 @@ def main():
                 elif selection == '14':
                     print(check_for_title(name))
                 elif selection == '15':
-                    encryption(name)
+                    print(encryption(name))
+                elif selection == '16':
+                    break
                 else:
                     print("that option doesn't exist")
                     break
