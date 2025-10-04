@@ -3,7 +3,7 @@ import random
 Author: Will Everett
 Date: 9/30/25
 description: practicing functions for CS2: getting different aspects of a name
-Bugs:NOT ALL TITLES ARE LISTED ONLY A SPECIFIC AMOUNT.
+Bugs: Not all titles listed
 sources: Mr Campbell and Ms. Marciano
  '''
 def uppercase(name):
@@ -58,7 +58,8 @@ def remove_title(name):
     for title in titles:
         if title in names:
             names.remove(title)
-    return ' '.join(names)    
+    listed =  ' '.join(names)  
+    return listed.strip()  
 def reverse(name):
     '''
     Description: reverses the name inputed
@@ -171,13 +172,19 @@ def palindrome(name):
     '''
     return lowercase(name) == reverse(lowercase(name))
 def sorted_array(name):
+    '''
+    Description: turns you rname into an alphabetical list of charactors
+
+    Args: name (string) origional input for name
+
+    Returns:your name as a list of charactors alphabetical
+    '''
     real_name = name.replace(' ', '')
     real_name = name.replace('-','')
     chars = list(real_name)
     sorted_chars = sorted(chars)
     final = ' '.join(sorted_chars)
     return lowercase(final)
-    
 def check_for_initials(name): 
     initials = ''
     new = remove_title(name)
@@ -187,7 +194,14 @@ def check_for_initials(name):
         initials += n[0]
     return uppercase(initials)
 def check_for_title(name):
-    titles = ['Dr.', 'Ms.', 'Mrs.', 'Jr.', 'Sr.', 'III', 'IV', 'PhD', 'MD', 'Professor', 'sir', 'lord', 'lady', 'king']
+    '''
+    Description: checks if your name has a title
+
+    Args: name (string) origional input for name
+
+    Returns: boolean (yes or no) if your name has a title in it
+    '''
+    titles = ['Dr.', 'Ms.', 'Mrs.', 'Jr.', 'Sr.', 'III', 'IV', 'PhD', 'MD', 'Professor', 'Sir', 'Lord', 'Lady', 'king']
     for title in titles:
         if title in name:
             return True
@@ -262,24 +276,24 @@ def encryption(name):
 
     
 def main():
+    name = input('what is your full name: ')
     while True:
-        name = input('what is your full name: ')
         while True:
                 selection = input('''\n What would you like to do with your name?
-                                1.)Reverse it ✔️
+                                1.)Reverse it 
                                 2.)Find the number of vowels 
                                 3.)Find the number of consonants 
                                 4.)See your first name 
                                 5.)See your last name 
                                 6.)See your middle name 
-                                7.)See if your your last name contains a hyphen ✔️
-                                8.)Switch all letters to lowercase ✔️
-                                9.)Switch all letters to uppercase ✔️
-                                10.)scramble the letters ✔️
-                                11.)See if your name is a palindrome ✔️
-                                12.)Have your name returnes as characters ✔️
+                                7.)See if your your last name contains a hyphen 
+                                8.)Switch all letters to lowercase 
+                                9.)Switch all letters to uppercase
+                                10.)scramble the letters 
+                                11.)See if your name is a palindrome 
+                                12.)Have your name returned as characters 
                                 13.)Get your initials  
-                                14.)See if your name has a title ✔️
+                                14.)See if your name has a title 
                                 15.)Encode your name
                                 16.)Change name
                                 Choose a number: ''')
@@ -315,6 +329,7 @@ def main():
                 elif selection == '15':
                     print(encryption(name))
                 elif selection == '16':
+                    name = input('what is your full name: ')
                     break
                 else:
                     print("that option doesn't exist")
@@ -322,4 +337,3 @@ def main():
 
 
 main()
-
