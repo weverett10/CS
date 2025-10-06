@@ -17,7 +17,7 @@ def uppercase(name):
     name_out = ''
 
     for letter in name:
-        if ord(letter) < 122 and ord(letter) > 91:
+        if ord(letter) < 122 and ord(letter) > 96:
             num = ord(letter)
             num -= 32
             letter = chr(num)
@@ -207,65 +207,31 @@ def check_for_title(name):
             return True
     return False
 def encryption(name):
+    '''
+    description: encodes or decoddes your name
+    Args: name (string) origional input for name
+    Returns: your name as eithe encoded or a decoded version of your name'''
     final = ''
     new1 = remove_title(name)
     new = lowercase(new1)
     choice  = input('do you want to encode or decode your name: ')
     if choice == 'encode':
-        while len(new) > 0: 
-            changing = new[0]
-            if changing == ' ' or changing == '-':
-                final += changing
-                name = list(new)
-                name.pop(0)
-                new = ''.join(name)
-            elif new[0] in ('v','w','x','y','z'):
-                num = ord(changing)
-                num += 5 
-                to_change = num - 122
-                new_num = to_change + 96
-                chred = chr(new_num)
-                final += chred
-                name = list(new)
-                name.pop(0)
-                new = ''.join(name)                
-            else:
-                num = ord(changing)
-                num += 5
-                chred = chr(num)
-                final += chred
-                name = list(new)
-                name.pop(0)
-                new = ''.join(name)
+        key = input('what do you want the key to be')
+        for ch in new:
+            if ch == ' ' or ch == '-':
+                final += ch
+            else:       
+                final += chr((ord(ch) + key - 97) % 26 + 97)
 
 
         return final
     elif choice == 'decode':
-        while len(new) > 0: 
-            changing = new[0]
-            if changing == ' ' or changing == '-':
-                final += changing
-                name = list(new)
-                name.pop(0)
-                new = ''.join(name)
-            elif new[0] in ('a','b','c','d','e'):
-                num = ord(changing)
-                num -= 5 
-                to_change = 97 - num
-                new_num = 123 - to_change
-                chred = chr(new_num)
-                final += chred
-                name = list(new)
-                name.pop(0)
-                new = ''.join(name)                
+        key = input('what was the key')
+        for ch in new:
+            if ch == ' ' or ch == '-':
+                final += ch
             else:
-                num = ord(changing)
-                num -= 5
-                chred = chr(num)
-                final += chred
-                name = list(new)
-                name.pop(0)
-                new = ''.join(name)
+                final += chr((ord(ch) - ord('a') - key ) % 26 + ord('a'))
         return final
     
     
