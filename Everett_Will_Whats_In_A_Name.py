@@ -216,22 +216,60 @@ def encryption(name):
     new = lowercase(new1)
     choice  = input('do you want to encode or decode your name: ')
     if choice == 'encode':
-        key = input('what do you want the key to be')
-        for ch in new:
-            if ch == ' ' or ch == '-':
-                final += ch
-            else:       
-                final += chr((ord(ch) + key - 97) % 26 + 97)
+        while len(new) > 0: 
+            changing = new[0]
+            if changing == ' ' or changing == '-':
+                final += changing
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
+            elif new[0] in ('v','w','x','y','z'):
+                num = ord(changing)
+                num += 5 
+                to_change = num - 122
+                new_num = to_change + 96
+                chred = chr(new_num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)                
+            else:
+                num = ord(changing)
+                num += 5
+                chred = chr(num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
 
 
         return final
     elif choice == 'decode':
-        key = input('what was the key')
-        for ch in new:
-            if ch == ' ' or ch == '-':
-                final += ch
+        while len(new) > 0: 
+            changing = new[0]
+            if changing == ' ' or changing == '-':
+                final += changing
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
+            elif new[0] in ('a','b','c','d','e'):
+                num = ord(changing)
+                num -= 5 
+                to_change = 97 - num
+                new_num = 123 - to_change
+                chred = chr(new_num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)                
             else:
-                final += chr((ord(ch) - ord('a') - key ) % 26 + ord('a'))
+                num = ord(changing)
+                num -= 5
+                chred = chr(num)
+                final += chred
+                name = list(new)
+                name.pop(0)
+                new = ''.join(name)
         return final
     
     
