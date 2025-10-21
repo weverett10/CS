@@ -1,3 +1,13 @@
+'''
+Author: Will Everett
+Date: 10/31/25
+Description: gets the price for shipping an item based on the distance it is traveling and how big it is.
+Bugs: doesnt list the price correctly if it has only one number - wont work if user responds with words
+Sources: Ms. Marciano
+'''
+# 4,4, .009, 02893, 08516 - .23
+#10, 12,.4,15623,89175
+
 def interpretinfo(info):
     info = info.split(',')
     card_length = float(info[0])
@@ -7,8 +17,10 @@ def interpretinfo(info):
     going_to = int(info[4])
     return card_length, card_height, card_thickness, coming_from, going_to
 def get_card_type(card_length, card_height, card_thickness):
-    pre_perim = card_length + card_height + card_thickness
-    perim = pre_perim*2
+    pre_perim =  card_height + card_thickness
+    theperim = pre_perim*2
+    perim = card_length + theperim
+
 
     if card_length >= 3.5 and card_length <= 4.25 and card_height >=3.5 and card_height<= 6 and card_thickness >= 0.007 and card_thickness <= 0.016:
         return 'post card'
@@ -60,11 +72,13 @@ def calculate_cost(card_type, distance):
         return  2.95 + 0.25*distance
     elif card_type == 'large package':
         return  3.95 + 0.35*distance
+
 def main():
     info = input('what is the length, height, and thickness of your item, and what zone your mailing from, and to: ')
     card_length, card_height, card_thickness, coming_from, going_to = interpretinfo(info)
     card_type = get_card_type(card_length, card_height, card_thickness)
     distance = get_distance(coming_from, going_to)
-    print(calculate_cost(card_type, distance))
+    finalprice = (calculate_cost(card_type, distance))
+    print(finalprice)
 
 main()
