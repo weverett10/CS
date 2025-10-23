@@ -6,7 +6,11 @@ Bugs: doesnt list the price correctly if it has only one number - wont work if u
 Sources: Ms. Marciano
 '''
 # 4,4, .009, 02893, 08516 - .23
-#10, 12,.4,15623,89175
+# 5,7, .013, 07245, 45216 - .43
+# 5,6, .2, 45216, 07245 - .45
+# 10, 12, .4,15623,89175 - .80
+# 10, 12, 30, 21505, 72400 - 4.65
+
 
 def interpretinfo(info):
     info = info.split(',')
@@ -36,13 +40,14 @@ def get_card_type(card_length, card_height, card_thickness):
         return  'large package'
     else:
         return 'unmailable'
+print(get_card_type(10, 12, 30))
 def get_zone(zipcode):
 
     if zipcode >= 1 and zipcode <= 6999:
         return 1
     elif zipcode  >= 7000 and zipcode <= 19999:
         return 2
-    elif zipcode  >= 20000 and zipcode <= 3599:
+    elif zipcode  >= 20000 and zipcode <= 35999:
         return 3
     elif zipcode  >= 36000 and zipcode <= 62999:
         return 4
@@ -64,7 +69,7 @@ def calculate_cost(card_type, distance):
         return .2 + 0.03*distance
     elif card_type == 'large post card':
         return .37 + 0.03*distance
-    elif card_type == 'enevelope':
+    elif card_type == 'envelope':
         return .37 + .04*distance
     elif card_type == 'large envelope':
         return  .6 + 0.05*distance
@@ -72,13 +77,19 @@ def calculate_cost(card_type, distance):
         return  2.95 + 0.25*distance
     elif card_type == 'large package':
         return  3.95 + 0.35*distance
-
+def formating(finalprice):
+    if finalprice =='unmailable':
+        return finalprice
+    finalprice = f"{finalprice:.2f}"
+    if finalprice[0] == '0':
+        finalprice = finalprice[1:]
+    return  finalprice
 def main():
     info = input('what is the length, height, and thickness of your item, and what zone your mailing from, and to: ')
     card_length, card_height, card_thickness, coming_from, going_to = interpretinfo(info)
     card_type = get_card_type(card_length, card_height, card_thickness)
     distance = get_distance(coming_from, going_to)
     finalprice = (calculate_cost(card_type, distance))
-    print(finalprice)
+    print(formating(finalprice))
 
 main()
