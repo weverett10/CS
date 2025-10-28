@@ -11,7 +11,6 @@ Sources: Ms. Marciano
 # 10, 12, .4,15623,89175 - .80
 # 10, 12, 30, 21505, 72400 - 4.65
 
-
 def interpretinfo(info):
     info = info.split(',')
     card_length = float(info[0])
@@ -21,10 +20,7 @@ def interpretinfo(info):
     going_to = int(info[4])
     return card_length, card_height, card_thickness, coming_from, going_to
 def get_card_type(card_length, card_height, card_thickness):
-    pre_perim =  card_height + card_thickness
-    theperim = pre_perim*2
-    perim = card_length + theperim
-
+    perim = card_length + 2*(card_height + card_thickness)
 
     if card_length >= 3.5 and card_length <= 4.25 and card_height >=3.5 and card_height<= 6 and card_thickness >= 0.007 and card_thickness <= 0.016:
         return 'post card'
@@ -34,15 +30,13 @@ def get_card_type(card_length, card_height, card_thickness):
         return  'envelope'
     elif card_length > 6.125 and card_length < 24 and card_height >= 11 and card_height<= 18 and card_thickness >= 0.25 and card_thickness <= 0.5:
         return  'large envelope'
-    elif card_length > 24 and card_height > 11 and card_thickness > 18 and perim <= 84:
+    elif card_length >= 24 or card_height > 18 or card_thickness > .5 and perim <= 84:
         return  'package'
-    elif card_length > 24 and card_height > 11 and card_thickness > 18 and perim > 84 and perim <= 130:
+    elif card_length >= 24 or card_height > 18 or card_thickness > .5 and perim > 84 and perim <= 130:
         return  'large package'
     else:
         return 'unmailable'
-print(get_card_type(10, 12, 30))
 def get_zone(zipcode):
-
     if zipcode >= 1 and zipcode <= 6999:
         return 1
     elif zipcode  >= 7000 and zipcode <= 19999:
@@ -81,6 +75,7 @@ def formating(finalprice):
     if finalprice =='unmailable':
         return finalprice
     finalprice = f"{finalprice:.2f}"
+
     if finalprice[0] == '0':
         finalprice = finalprice[1:]
     return  finalprice
@@ -91,5 +86,4 @@ def main():
     distance = get_distance(coming_from, going_to)
     finalprice = (calculate_cost(card_type, distance))
     print(formating(finalprice))
-
 main()
