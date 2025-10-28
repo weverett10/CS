@@ -80,7 +80,7 @@ def formating(finalprice):
         finalprice = finalprice[1:]
     return  finalprice
 def main():
-    info = input('what is the length, height, and thickness of your item, and what zone your mailing from, and to: ')
+    info = input('what is the length, height, and thickness of your item, and what zone your mailing from, and to : ')
     card_length, card_height, card_thickness, coming_from, going_to = interpretinfo(info)
     card_type = get_card_type(card_length, card_height, card_thickness)
     distance = get_distance(coming_from, going_to)
