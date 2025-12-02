@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Dimensions</title>
+</head>
+<body style="background-color: rgb(246, 49, 114);">
+    <form id="boxForm">
+        <label for="length">Height:</label>
+        <input type="number" id="height" name="height" step="0.01"><br><br>
+        
+        <label for="height">Length:</label>
+        <input type="number" id="length" name="length" step="0.01"><br><br>
+        
+        <label for="thickness">Thickness:</label>
+        <input type="number" id="thickness" name="thickness" step="0.01"><br><br>
+        
+        <label for="zipFrom">Zip From:</label>
+        <input type="text" id="zipFrom" name="zipFrom" step="1"><br><br>
+        
+        <label for="zipTo">Zip To:</label>
+        <input type="text" id="zipTo" name="zipTo" step="1"><br><br>
+        
+        <button type="button" onclick="main()">Submit</button>
+    </form>
+
+    <script>
+        /**
+         * Main function to read in the data from the form
+         */
+        function main() {
+            // Read in the data from the form
+            const length = parseFloat(document.getElementById('length').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const thickness = parseFloat(document.getElementById('thickness').value);
+            const coming_from = parseInt(document.getElementById('zipFrom').value);
+            const going_to = parseInt(document.getElementById('zipTo').value);
+
+            // Call the other functions (currently not implemented)
+            card_type = get_card_type(length, height, thickness)
+            distance = get_distance(coming_from, going_to)
+            finalprice = (calculate_cost(card_type, distance))
+            alert(formating(finalprice))
+
+
+
+        }
+        function get_card_type(card_length, card_height, card_thickness){
+        const perim = card_length + 2 * (card_height + card_thickness);
+
+        if ( (card_length >= 3.5 && card_length <= 4.25) && (card_height >= 3.5 && card_height <= 6) && card_thickness >= 0.007 && card_thickness <= 0.016) {
+            return 'post card';
+        } else if (card_length > 4.25 && card_length < 6 && card_height > 6 && card_height < 11.5 && card_thickness >= 0.007 && card_thickness <= 0.015) {
+            return 'large post card';
+        } else if (card_length >= 3.5 && card_length <= 6.125 && card_height >= 5 && card_height <= 11.5 && card_thickness > 0.016 && card_thickness < 0.25) {
+            return 'envelope';
+        } else if (card_length > 6.125 && card_length < 24 && card_height >= 11 && card_height <= 18 && card_thickness >= 0.25 && card_thickness <= 0.5) {
+            return 'large envelope';
+        } else if ((card_length >= 24 || card_height > 18 || card_thickness > 0.5) && perim <= 84) {
+            return 'package';
+        } else if ((card_length >= 24 || card_height > 18 || card_thickness > 0.5) && perim > 84 && perim <= 130) {
+            return 'large package';
+        } else {
+            return 'Unmailable';
+        }}
+        /**
+         * Function to get zip information
+         * @param {number} zip - The zip code
+         */
+        function getZone(zipcode) {
+        if (zipcode >= 1 && zipcode <= 6999) {
+        return 1;
+        } else if (zipcode >= 7000 && zipcode <= 19999) {
+            return 2;
+        } else if (zipcode >= 20000 && zipcode <= 35999) {
+            return 3;
+        } else if (zipcode >= 36000 && zipcode <= 62999) {
+            return 4;
+        } else if (zipcode >= 63000 && zipcode <= 84999) {
+            return 5;
+        } else if (zipcode >= 85000 && zipcode <= 99999) {
+            return 6;
+        }
+        return -1;
+            // Implementation goes here
+        }
+        function get_distance(coming_from, going_to){
+        comingfromzone = getZone(coming_from);
+        goingtozone = getZone(going_to);
+
+        if (comingfromzone === -1 || goingtozone === -1) {
+            return 'Unmailable';
+        }
+        return Math.abs(comingfromzone - goingtozone);
+        }
+
+        function calculate_cost(card_type, distance){
+
+        if (comingfromzone === undefined || goingtozone === undefined) {
+            return 'Unmailable';
+        }
+        if (card_type === 'post card') {
+            return 0.2 + 0.03 * distance;
+        } else if (card_type === 'large post card') {
+            return 0.37 + 0.03 * distance;
+        } else if (card_type === 'envelope') {
+            return 0.37 + 0.04 * distance;
+        } else if (card_type === 'large envelope') {
+            return 0.6 + 0.05 * distance;
+        } else if (card_type === 'package') {
+            return 2.95 + 0.25 * distance;
+        } else if (card_type === 'large package') {
+            return 3.95 + 0.35 * distance;
+        }
+        }
+        
+        function formating(finalprice){
+        if (finalprice === 'Unmailable') {
+            return finalprice;
+        }
+        else
+            finalprice = finalprice.toFixed(2);
+
+        if (finalprice[0] === '0') {
+            finalprice = finalprice.slice(1);
+        }
+        return finalprice;
+
+        }
+    
+     
+    </script>
+</body>
+
+
+</html>
