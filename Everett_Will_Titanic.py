@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+
+
 def read_csv_manual(filename):
     data = []
     with open(filename, 'r') as file:
@@ -35,7 +38,6 @@ def display_first_ten():
     except FileNotFoundError:
         print("Error: 'titanic.csv' file not found.")
 
-
 def calculate_survival_rate(data):
     header = data[0]
     survived_index = header.index("Survived")
@@ -49,13 +51,9 @@ def calculate_survival_rate(data):
             total_survived += 1
 
     survival_rate = (total_survived / total_passengers) * 100
+
+    print(f"Overall survival rate: {survival_rate:.2f}%")
     return survival_rate
-
-titanic_data = read_csv_manual('titanic.csv')
-
-rate = calculate_survival_rate(titanic_data)
-print(f"Overall survival rate: {rate:.2f}%")
-
 
 def gender_survival_rate(data):
     header = data[0]
@@ -102,7 +100,6 @@ def gender_survival_rate(data):
 
     return males, females
 
-
 def age_statistics(data):
     header = data[0]
     age_index = header.index("Age")
@@ -120,6 +117,8 @@ def age_statistics(data):
             continue
 
         age = float(age)
+
+        
         ages.append(age)
 
 
@@ -144,8 +143,6 @@ def age_statistics(data):
     print(f"Oldest passenger: {oldest}")
 
     return overall_avg, survived_avg, not_survived_avg, youngest, oldest
-
-
 
 def class_statistics(data):
     header = data[0]
@@ -192,11 +189,11 @@ def class_statistics(data):
             class3_total += 1
             class3_fare += fare
             class3_fares_collected += 1
-            if survived == '3':
+            if survived == '1':
                 class3_survived += 1 
-    class1fare = (class1_fare/class1_fares_collected)*100
-    class2fare = (class2_fare/class2_fares_collected)*100
-    class3fare = (class3_fare/class3_fares_collected)*100
+    class1fare = (class1_fare/class1_fares_collected)
+    class2fare = (class2_fare/class2_fares_collected)
+    class3fare = (class3_fare/class3_fares_collected)
 
     faree1 = f"${class1fare:.2f}"
     faree2 = f"${class2fare:.2f}"
@@ -208,21 +205,257 @@ def class_statistics(data):
     print(f'the average fare of second class passengers was',faree1)
         
     print('CLASS 2 STATS')
-    print(f'the survival rate for second class passengers is''', (class2_survived/class2_total)*100)
+    print(f'the survival rate for second class passengers is', (class2_survived/class2_total)*100)
     print(f'the average fare of second class passengers was', faree2)
     
     print('CLASS 3 STATS')
-    print(f'the survival rate for third class passengers is''', (class3_survived/class3_total)*100)
-    print(f'the average fare of third class passengers was', faree3,)
-
-
-
+    print(f'the survival rate for third class passengers is', (class3_survived/class3_total)*100)
+    print(f'the average fare of third class passengers was', faree3,)    
+    
+    
+    return  (
+        (class1_survived / class1_total) * 100,
+        (class2_survived / class2_total) * 100,
+        (class3_survived / class3_total) * 100
+    )
         
-        
+def family_survival_patterns(data):
+    header = data[0]
+    sibling_index = header.index("SibSp")
+    survived_index = header.index("Survived")
+    parent_index = header.index("Parch")
+
+    familyamount = 0
+    nonfamilyamount = 0
+    familysurvived = 0
+    nonfamilysurvived = 0
+
+    familysize2 = 0
+    familysize2_survived = 0
+
+    familysize3 = 0
+    familysize3_survived = 0
+
+    familysize4 = 0
+    familysize4_survived = 0
+
+    familysize5 = 0
+    familysize5_survived = 0
+
+    familysize6 = 0
+    familysize6_survived = 0
+
+    familysize7 = 0
+    familysize7_survived = 0
+
+    familysize8 = 0
+    familysize8_survived = 0
+
+    familysize9 = 0
+    familysize9_survived = 0
+
+    familysize10 = 0
+    familysize10_survived = 0
+
+    
+
+    for row in data[1:]:
+        sibs = row[sibling_index]
+        survived = row[survived_index]
+        parents = row[parent_index]
+
+        size = int(sibs) + int(parents) + 1
+        if size > 1:
+            familyamount += 1
+            if survived == '1':
+                familysurvived += 1
+        elif size <2: 
+            nonfamilyamount += 1
+            if survived == '1':
+                nonfamilysurvived += 1
+    family_survivalrate = (familysurvived/familyamount)*100
+    nonfamily_survivalrate  = (nonfamilysurvived/nonfamilyamount)*100
+
+    thesurvivalrate1 = f'{family_survivalrate:.2f}%'
+    thesurvivalrate2 = f'{nonfamily_survivalrate:.2f}%'
+
+    print(f'the chance of surving if you traveled with family was', thesurvivalrate1)
+    print(f'the chance of surving if you traveled without family was', thesurvivalrate2)
+
+    if thesurvivalrate1 > thesurvivalrate2:
+        print('you had a better chance to survive if you travelled with your family')
+    elif thesurvivalrate1 < thesurvivalrate2:
+        print('you had a better chance to survive if you travelled alone')
+    else:
+        print('there was on difference between travelling alone or with your family')
+
+       
+
+
+
+
+
+
+    for row in data[1:]: 
+        sibs = row[sibling_index]
+        survived = row[survived_index]
+        parents = row[parent_index]
+        size = int(sibs) + int(parents) + 1   
+
+        if size == 1:
+            continue
+
+        elif size == 2:
+            familysize2 +=1
+            if survived == '1':
+                familysize2_survived += 1
+            
+        elif size == 3:
+            familysize3 +=1
+            if survived == '1':
+                familysize3_survived += 1
+    
+        elif size == 4:
+            familysize4 +=1
+            if survived == '1':
+                familysize4_survived += 1
+    
+        elif size == 5:
+            familysize5 +=1
+            if survived == '1':
+                familysize5_survived += 1
+
+        elif size == 6:
+            familysize6 +=1
+            if survived == '1':
+                familysize6_survived += 1
+    
+        elif size == 7:
+            familysize7 +=1
+            if survived == '1':
+                familysize7_survived += 1
+    
+        elif size == 8:
+            familysize8 +=1
+            if survived == '1':
+                familysize8_survived += 1
+
+
+
     
 
 
+    survival2 = (familysize2_survived/familysize2)*100
+    survival3 = (familysize3_survived/familysize3)*100
+    survival4 = (familysize4_survived/familysize4)*100
+    survival5 = (familysize5_survived/familysize5)*100
+    survival6 = (familysize6_survived/familysize6)*100
+    survival7 = (familysize7_survived/familysize7)*100
+    survival8 = (familysize8_survived/familysize8)*100
+    
+    
+
+    print('if you were travelling on your own you had a', thesurvivalrate1, 'chance to live')
+    print(f'if you were travelling with 1 family member you had a {survival2:.2f}% chance to survive')
+    print(f'if you were travelling with 2 family members you had a {survival3:.2f}% chance to survive')
+    print(f'if you were travelling with 3 family members you had a {survival4:.2f}% chance to survive')
+    print(f'if you were travelling with 4 family members you had a {survival5:.2f}% chance to survive')
+    print(f'if you were travelling with 5 family members you had a {survival6:.2f}% chance to survive')
+    print(f'if you were travelling with 6 family members you had a {survival7:.2f}% chance to survive')
+    print(f'if you were travelling with 7 family members you had a {survival8:.2f}% chance to survive')
+   
+
+
+def data_visualization(data):
+    header = data[0]
+    age_index = header.index("Age")
+
+
+
+
+    #gender survival rate bar graph
+    malesurvive, femalesurvive = gender_survival_rate(data)
+
+    plt.figure()
+    plt.bar(['male','female'],[malesurvive,femalesurvive])
+    plt.xlabel('GENDER')
+    plt.ylabel('Survival rate(%)')
+    plt.title('survival rates by gender')
+    
+
+
+    #historgram for ages
+    ages = []
+
+    for row in data[1:]:
+        age = row[age_index]
+        if age == "" or age.lower() == "nan":
+            continue
+        ages.append(float(age))
+    plt.figure()
+    plt.hist(ages, bins = 20)
+    plt.xlabel('age')
+    plt.ylabel('number of passengers')
+    plt.title('ages of passengers')
+    
+
+    #class survival bar
+    class1_rate, class2_rate, class3_rate = class_statistics(data)
+
+    plt.figure()
+    plt.bar(['Class 1','Class 2', 'Class3'],[class1_rate, class2_rate, class3_rate])
+    plt.xlabel('Passengers Class')
+    plt.ylabel('Survival rate(%)')
+    plt.title('Survival Rate by Passenger Class')
+    
+
+    plt.show()
+
+def comprehensiv_report(data):
+    
+    total_passengers = len(data) - 1
+
+    overall_rate = calculate_survival_rate(data)
+    male_rate, female_rate = gender_survival_rate(data)
+    avg_age, surv_avg_age, nonsurv_avg_age, youngest, oldest = age_statistics(data)
+    class1_rate, class2_rate, class3_rate = class_statistics(data)
+
+
+    with open("titanic_report.txt", "w") as file:
+        file.write("TITANIC SURVIVAL REPORT\n")
+        file.write("----------------------\n\n")
+
+        file.write(f"Total Passengers: {total_passengers}\n")
+        file.write(f"Overall Survival Rate: {overall_rate:.2f}%\n\n")
+
+        file.write("Survival by Gender:\n")
+        file.write(f"  Male: {male_rate:.2f}%\n")
+        file.write(f"  Female: {female_rate:.2f}%\n\n")
+
+        file.write("Age Statistics:\n")
+        file.write(f"  Average Age (All): {avg_age:.2f}\n")
+        file.write(f"  Average Age (Survivors): {surv_avg_age:.2f}\n")
+        file.write(f"  Average Age (Non-Survivors): {nonsurv_avg_age:.2f}\n")
+        file.write(f"  Youngest Passenger: {youngest}\n")
+        file.write(f"  Oldest Passenger: {oldest}\n\n")
+
+        file.write("Survival by Passenger Class:\n")
+        file.write(f"  1st Class: {class1_rate:.2f}%\n")
+        file.write(f"  2nd Class: {class2_rate:.2f}%\n")
+        file.write(f"  3rd Class: {class3_rate:.2f}%\n\n")
+
+        file.write("Most Likely Survivor Profile:\n")
+        if female_rate > male_rate:
+            file.write("- Female\n")
+        file.write("- First Class passenger\n")
+        file.write("- Younger passengers had better survival chances\n")
+
+    print("Report successfully saved as 'titanic_report.txt'")
+
+
 def main():
+    titanic_data = read_csv_manual('titanic.csv')
+
     while True:
         choice = input('''
         1. Display first 10 lines: 
@@ -230,20 +463,27 @@ def main():
         3. gender survival rate
         4. age stats
         5. class stats
+        6. family survival patterns
+        7. data visualization
+        8. comprehensive report
         - ''')
+
         if choice == '1':
             display_first_ten()
         elif choice == '2':
-            rate = calculate_survival_rate(titanic_data)
-            print(f"survival rate: {rate:.2f}%")
+            calculate_survival_rate(titanic_data)
         elif choice == '3':
-            gender_survival_rate(titanic_data)
+            (gender_survival_rate(titanic_data))
         elif choice == '4':
             age_statistics(titanic_data)
         elif choice == '5':
             class_statistics(titanic_data)
-            
-
+        elif choice == '6':
+            family_survival_patterns(titanic_data)
+        elif choice == '7':
+            data_visualization(titanic_data)
+        elif choice == '8':
+            comprehensiv_report(titanic_data)
 
 main()
 
