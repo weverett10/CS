@@ -1,11 +1,10 @@
-# CS2 Project - Data Dictionary
-# File I/O, Dictionaries, CSV, and Graphing with Matplotlib
-
 import matplotlib.pyplot as plt
 
-# -------------------------------------------------------
-# STEP 1: Open and Read Both Files
-# -------------------------------------------------------
+
+
+
+#Open and Read Both Files
+
 
 macbeth_file = open("macbeth.txt", "r")
 macbeth_text = macbeth_file.read()
@@ -17,13 +16,13 @@ caesar_file.close()
 
 print("Files opened successfully!")
 
-# -------------------------------------------------------
-# STEP 2: Create the Dictionaries
-# -------------------------------------------------------
+
+# Create the Dictionaries
+
 
 # Filler words to ignore (called "stop words")
 stop_words = [
-    # Modern English filler words
+
     "the", "and", "to", "of", "a", "i", "in", "is", "it", "that",
     "you", "my", "with", "he", "his", "not", "this", "be", "as",
     "for", "but", "have", "your", "we", "so", "are", "was", "at",
@@ -38,7 +37,6 @@ stop_words = [
     "after", "before", "where", "while", "though", "through", "between",
     "each", "own", "other", "must", "can", "said", "say", "says",
     "made", "make", "know", "think", "see", "look", "take", "give",
-    # Old English / Shakespearean filler words
     "thou", "thy", "thine", "thyself", "thee", "ye", "hath", "hast",
     "doth", "dost", "tis", "twas", "twere", "twill", "twixt",
     "wherefore", "whither", "thither", "hither", "hence", "thence",
@@ -80,9 +78,8 @@ for word in caesar_words:
 print(f"Macbeth Dictionary:       {len(macbeth_dict)} unique words found")
 print(f"Julius Caesar Dictionary: {len(caesar_dict)} unique words found")
 
-# -------------------------------------------------------
-# STEP 3: Write Key-Value Pairs to CSV Files
-# -------------------------------------------------------
+# Write Key-Value Pairs to CSV Files
+
 
 macbeth_sorted = sorted(macbeth_dict.items(), key=lambda x: x[1], reverse=True)[:15]
 macbeth_out = open("macbeth_wordcount.csv", "w")
@@ -100,11 +97,11 @@ for key, value in caesar_sorted:
 caesar_out.close()
 print("Julius Caesar dictionary written to julius caesar_wordcount.csv")
 
-# -------------------------------------------------------
-# STEP 4: Graph Both Books Side by Side using Matplotlib
-# -------------------------------------------------------
 
-# Helper: get top 15 words sorted by count
+# Graph Both Books 
+
+
+# get top 15 words sorted by count
 def top_words(word_dict, n=15):
     sorted_words = sorted(word_dict.items(), key=lambda x: x[1], reverse=True)
     return sorted_words[:n]
@@ -118,7 +115,7 @@ macbeth_counts_top = [pair[1] for pair in macbeth_top]
 caesar_words_top  = [pair[0] for pair in caesar_top]
 caesar_counts_top = [pair[1] for pair in caesar_top]
 
-# Create a figure with two side-by-side charts
+
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(22, 8))
 
 # ----- Left Chart: Macbeth -----
