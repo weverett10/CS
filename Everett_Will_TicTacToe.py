@@ -1,19 +1,15 @@
-board =   [  
-["", "", ""],
-["", "", ""],
-["", "", ""]]
+
+
 
 
 def playermove(playerup,board):
-
     while True:
         while True:
-            column = input('which column do you want to put it in(1 2 or 3): ')
+            column = input('which column do you want to put it in? (1 2 or 3): ')
             if column != '1' and column != '2' and column != '3':
                 print("Can't do that!!")
             
-                
-            row = input ('what row do you want to put it in(1 2 or 3): ')
+            row = input ('what row do you want to put it in? (1 2 or 3): ')
             if row != '1' and row != '2' and row != '3':
                 print (" Can't do that !!!")
             else:
@@ -22,8 +18,8 @@ def playermove(playerup,board):
 
 
 
-        if board[int(row) - 1][int(column) - 1] == '':
-            board[int(row) - 1][int(column) - 1] = playerup
+        if board[int(row)][int(column)] == '':
+            board[int(row)][int(column)] = playerup
             break
         else:
             print("Can't do that!!!")
@@ -31,89 +27,109 @@ def playermove(playerup,board):
 
 def win(board):
 
-    if board[0][0] == 'x' and board [0][1] == 'x' and board [0][2] == 'x':
-        return ('Congrats X you just Won the game')
-    elif board[1][0] == 'x' and board [1][1] == 'x' and board [1][2] == 'x':
-        return('Congrats X you just won the game')
-    elif board[2][0] == 'x' and board [2][1] == 'x' and board [2][2] == 'x':
-        return('Congrats X you just won the game')
+    if board[1][1] == 'x' and board [1][2] == 'x' and board [1][3] == 'x':
+        return True
+    elif board[2][1] == 'x' and board [2][2] == 'x' and board [2][3] == 'x':
+        return True
+    elif board[3][1] == 'x' and board [3][2] == 'x' and board [3][3] == 'x':
+        return True
 
 
-    elif board[0][0] == 'x' and board[1][0] == 'x' and board [2][0] == 'x':
-        return('Congrats X you just won the game')
-    elif board[0][1] == 'x' and board[1][1] == 'x' and board [2][1] == 'x':
-        return('Congrats X you just won the game')
-    elif board[0][2] == 'x' and board[1][2] == 'x' and board [2][2] == 'x':
-        return('Congrats X you just won the game')
+    elif board[1][1] == 'x' and board[2][1] == 'x' and board [3][1] == 'x':
+        return True
+    elif board[1][2] == 'x' and board[2][2] == 'x' and board [3][2] == 'x':
+        return True
+    elif board[1][3] == 'x' and board[2][3] == 'x' and board [3][3] == 'x':
+        return True
 
 
-    elif board[0][0] == 'x' and board[1][1] == 'x' and board [2][2] == 'x':
-        print('Congrats X you just won the game')
-    elif board[0][2] == 'x' and board[1][1] == 'x' and board [2][0] == 'x':
-        print('Congrats X you just won the game')   
+    elif board[1][1] == 'x' and board[2][2] == 'x' and board [3][3] == 'x':
+        return True
+    elif board[1][3] == 'x' and board[2][2] == 'x' and board [3][1] == 'x':
+        return True   
 
 
 
-    if board[0][0] == 'o' and board [0][1] == 'o' and board [0][2] == 'o':
-        return ('Congrats X you just Won the game')
-    elif board[1][0] == 'o' and board [1][1] == 'o' and board [1][2] == 'o':
-        return('Congrats o you just won the game')
-    elif board[2][0] == 'o' and board [2][1] == 'o' and board [2][2] == 'o':
-        return('Congrats o you just won the game')
+    if board[1][1] == 'o' and board [1][2] == 'o' and board [1][3] == 'o':
+        return True
+    elif board[2][1] == 'o' and board [2][2] == 'o' and board [2][3] == 'o':
+        return True
+    elif board[3][1] == 'o' and board [3][2] == 'o' and board [3][3] == 'o':
+        return True
 
 
-    elif board[0][0] == 'o' and board[1][0] == 'o' and board [2][0] == 'o':
-        return('Congrats o you just won the game')
-    elif board[0][1] == 'o' and board[1][1] == 'o' and board [2][1] == 'o':
-        return('Congrats o you just won the game')
-    elif board[0][2] == 'o' and board[1][2] == 'ox' and board [2][2] == 'o':
-        return('Congrats o you just won the game')
+    elif board[1][1] == 'o' and board[2][1] == 'o' and board [3][1] == 'o':
+        return True
+    elif board[1][2] == 'o' and board[2][2] == 'o' and board [3][2] == 'o':
+        return True
+    elif board[1][3] == 'o' and board[2][3] == 'o' and board [3][3] == 'o':
+        return True
 
-        
-    elif board[0][0] == 'o' and board[1][1] == 'o' and board [2][2] == 'o':
-        return('Congrats o you just won the game')
-    elif board[0][2] == 'o' and board[1][1] == 'o' and board [2][0] == 'o':
-        return('Congrats o you just won the game')
+
+    elif board[1][1] == 'o' and board[2][2] == 'o' and board [3][3] == 'o':
+        return True
+    elif board[1][3] == 'o' and board[2][2] == 'o' and board [3][1] == 'o':
+        return True   
 
 def tiegame(board):  
-    if board[0][0] == '' and board[0][1] == '' and board[0][2] == '' and board[1][0] == '' and board[1][1] == '' and board[1][2] == '' and board[2][0] == '' and board[2][1] == '' and board[2][2] == '':
-        pass
-    else:
-        return("It's a tie!!!")
+    if board[1][1] != '' and board[1][2] != '' and board[1][3] != '' and board[2][1] != '' and board[2][2] != '' and board[2][3] != '' and board[3][1] != '' and board[3][2] != '' and board[3][3] != '':
+        return True
         
 
 def main():
-
-
+    board =   [  
+    ['~',1  ,2  ,3,],
+    [1, "", "", ""],
+    [2, "", "", ""],
+    [3, "", "", ""]]
+    
     playerup = 'x'
+
     while True:
-        playermove(playerup,board)
-        if playerup == 'x':
-            playerup = 'o'
-        else:
-            playerup = 'x'
+
+
+        
         print(f''' 
 {board[0]}
 {board[1]}
 {board[2]}
+{board[3]}
 ''')
-        winner = (win(board))
-        tie = (tiegame(board))
-        if winner == 'Congrats o you just won the game' or winner == 'Congrats x you just won the game':
-            print('congrats X you just won')
-            question = input('would you like to play again? ')
-            if question == 'yes':
+        playermove(playerup,board)
+
+        
+        
+        if playerup == 'x':
+            playerup = 'o'
+        else:
+            playerup = 'x'
+
+        if win(board) is True:
+            print('\n\n congrats you won')
+            q = input('do you want to play again? (y/n): ')
+            if q.lower() == 'y':   
+                board =   [  
+    ['~',1  ,2  ,3,],
+    [1, "", "", ""],
+    [2, "", "", ""],
+    [3, "", "", ""]]                     
                 continue
             else:
-                print('ok your loss')
-                break
-        elif tie == "It's a tie!!!":
-            question = input('would you like to play again? ')
-            if question == 'yes':
-                continue
-            else:
-                print('ok your loss')
+
                 break
 
+        elif tiegame is True:
+            print("\n\nit's a tie")
+            q = input('do you want to play again? (y/n): ')            
+            if q.lower() == 'y':        
+                board =   [  
+    ['~',1  ,2  ,3,],
+    [1, "", "", ""],
+    [2, "", "", ""],
+    [3, "", "", ""]]                
+                continue
+            else:
+
+                break
 
 main()
