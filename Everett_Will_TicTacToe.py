@@ -2,7 +2,7 @@
 Author: Will Everett
 Date: 4/7/2026
 description: game of tic tac toe
-Bugs: doesn't tell you who won
+Bugs: doesn't tell you who won - doesn't print the final move on a win - 
 sources: Mr Campbell and Ms. Marciano and Ms. Sharma
  '''
 
@@ -80,11 +80,11 @@ def win(board):
 
 
     elif board[0][0] == 'o' and board[1][0] == 'o' and board [2][0] == 'o':
-        return ('o, you won')
+        return True
     elif board[0][1] == 'o' and board[1][1] == 'o' and board [2][1] == 'o':
-        return ('o, you won')
+        return True
     elif board[0][2] == 'o' and board[1][2] == 'o' and board [2][2] == 'o':
-        return ('o, you won')
+        return True
 
         
     elif board[0][0] == 'o' and board[1][1] == 'o' and board [2][2] == 'o':
@@ -121,9 +121,9 @@ def main():
         print(f'''  1   2   3
         
 1  {board[0][0]} | {board[0][1]} | {board[0][2]}
- ----------
+  -----------
 2  {board[1][0]} | {board[1][1]} | {board[1][2]}   
- ----------          
+  -----------          
 3  {board[2][0]} | {board[2][1]} | {board[2][2]}                   
                       ''')
         playermove(playerup,board)
@@ -148,7 +148,7 @@ def main():
 
                 break
 
-        elif tiegame():
+        elif tiegame(board):
             print("\n\nit's a tie")
             q = input('do you want to play again? (y/n): ')            
             if q.lower() == 'y':        
