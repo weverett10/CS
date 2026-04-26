@@ -7,57 +7,59 @@ sources: Mr Campbell and Ms. Marciano and Ms. Sharma
 '''
 import random
 
-
 def getdots():
-    #needs to not return the same 2 numbers
-
+    columndot = []
+    rowdot = []
     while True:
     
-        columndot = []
-        rowdot = []
         
-        column += random.randint(0,5)
-        row += random.randint
+        
+        column = (random.randint(0,4))
+        row = (random.randint(0,4))
+
+        if (row, column) not in zip(rowdot,columndot):
+             rowdot.append(row)
+             columndot.append(column)
 
         if len(rowdot) == 4:
             break
-        return columndot,rowdot
+    return columndot,rowdot
 
 
-def checkhit(board1,rowdot,columndot,count):
+def checkhit(board1, rowdot, columndot, row, column):
+    if board1[row][column] == '💥' or board1[row][column] == '❌':
+        print("you already shot there!")
+        return False
+    elif (row, column) in zip(rowdot, columndot):
+        board1[row][column] = '💥'
+        print('You Got One!')
+        index = list(zip(rowdot, columndot)).index((row, column))
+        rowdot.pop(index)
+        columndot.pop(index)
+        return True
 
-    if  playermove() == {board1[rowdot][columndot]}:
-        {board1[rowdot][columndot]} == '💥'
-        return count -1
-        
     else:
-        {board1[rowdot][columndot]} == '❌'
-        pass
+        board1[row][column] = '❌'
+        print('You Missed!')
+        return True
         
     
-def playermove(playerturn,board1):
+def playermove():
     while True:
-        while True:
-                column = input('which column do you want to put it in? (1 2 3 4 5): ')
-                if column != '1' and column != '2' and column != '3' and column != '4' and column != '5':
-                    print("Can't do that!!")
-                    continue
-                
-                row = input ('what row do you want to put it in? (1 2 3 4 5): ')
-                if row != '1' and row != '2' and row != '3' and row != '4' and row != '5':
-                    print (" Can't do that !!!")
+            column = int(input('what column would you like to shoot at (1 2 3 4 5): '))
+            if column > 0 and column < 6:
+                row = int(input('what row would you like to shoot at (1 2 3 4 5): '))
+                if row > 0 and row < 6:
+                     column = column-1 
+                     row = row-1
+                     return column,row
                 else:
-                    break
-        
+                     print("can't do that try again")
+            else:
+                 print("can't do that try again")
+                
 
-
-        if board1[int(row)][int(column)-1] == '💧':
-            board1[int(row)-1][int(column)-1] = playerturn
-            break
-        else:
-            print("Can't do that!!!")#fix this
-            break        
-    
+                
 def main():
     board1 =   [  
     ["💧", "💧", "💧", "💧", "💧"],
@@ -66,24 +68,13 @@ def main():
     ["💧", "💧", "💧", "💧", "💧"],
     ["💧", "💧", "💧", "💧", "💧"]]
 
-    board2 =   [  
-    ["💧", "💧", "💧", "💧", "💧"],
-    ["💧", "💧", "💧", "💧", "💧"],
-    ["💧", "💧", "💧", "💧", "💧"],
-    ["💧", "💧", "💧", "💧", "💧"],
-    ["💧", "💧", "💧", "💧", "💧"]]
-    
-    count = 4
-
-    playerturn = '1'
-
-    if playerturn == '1':
-            playerturn = '2'
-    else:
-            playerturn = '1'
+    columndot,rowdot = getdots()
+    shots = 10
 
 
-    print(f'''  1   2   3   4   5 
+    while shots > 0:
+
+        print(f'''  1   2   3   4   5 
         
 1  {board1[0][0]} {board1[0][1]} {board1[0][2]} {board1[0][3]} {board1[0][4]}
 
@@ -95,10 +86,24 @@ def main():
 
 5  {board1[4][0]} {board1[4][1]} {board1[4][2]} {board1[4][3]} {board1[4][4]}             
                       ''')
+       
+        print(f'you have{shots} remaining')
+
+        column,row = playermove()
+        if checkhit(board1, rowdot, columndot, row, column):
+            shots -= 1
+
+        if len(rowdot) == 0:
+            print("you win!!!!🤩")
+            break
+             
+        if shots == 0 and len(rowdot) > 0:
+            print('out of shots you lose😭')
+            break   
+     
+
     
-    playermove(playerturn,board1)
-    
-    getdots(board1)
+
 
 
     
