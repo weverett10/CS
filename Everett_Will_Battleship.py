@@ -94,18 +94,43 @@ def main():
             shots -= 1
 
         if len(rowdot) == 0:
+            print(f'''  1   2   3   4   5 
+        
+1  {board1[0][0]} {board1[0][1]} {board1[0][2]} {board1[0][3]} {board1[0][4]}
+
+2  {board1[1][0]} {board1[1][1]} {board1[1][2]} {board1[1][3]} {board1[1][4]}  
+       
+3  {board1[2][0]} {board1[2][1]} {board1[2][2]} {board1[2][3]} {board1[2][4]} 
+
+4  {board1[3][0]} {board1[3][1]} {board1[3][2]} {board1[3][3]} {board1[3][4]}          
+
+5  {board1[4][0]} {board1[4][1]} {board1[4][2]} {board1[4][3]} {board1[4][4]}             
+                      ''')
+       
             print("you win!!!!🤩")
             break
              
         if shots == 0 and len(rowdot) > 0:
+            print(f'''  1   2   3   4   5 
+        
+1  {board1[0][0]} {board1[0][1]} {board1[0][2]} {board1[0][3]} {board1[0][4]}
+
+2  {board1[1][0]} {board1[1][1]} {board1[1][2]} {board1[1][3]} {board1[1][4]}  
+       
+3  {board1[2][0]} {board1[2][1]} {board1[2][2]} {board1[2][3]} {board1[2][4]} 
+
+4  {board1[3][0]} {board1[3][1]} {board1[3][2]} {board1[3][3]} {board1[3][4]}          
+
+5  {board1[4][0]} {board1[4][1]} {board1[4][2]} {board1[4][3]} {board1[4][4]}             
+                      ''')
+       
             print('out of shots you lose😭')
             break   
      
 
     
 
-
+main()
 
     
 
-main()
